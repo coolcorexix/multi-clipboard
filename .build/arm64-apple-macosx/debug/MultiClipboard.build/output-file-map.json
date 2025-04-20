@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/master.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.swiftdeps"
+  }
+}

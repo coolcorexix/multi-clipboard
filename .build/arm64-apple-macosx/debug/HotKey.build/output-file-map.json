@@ -1,0 +1,41 @@
+{
+  "": {
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/master.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/HotKey.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKey.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKey.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKey~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKey.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/HotKeysController.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKeysController.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKeysController.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKeysController~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/HotKeysController.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/Key.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/Key.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/Key.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/Key~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/Key.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/KeyCombo+System.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo+System.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo+System.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo+System~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo+System.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/KeyCombo.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/KeyCombo.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/NSEventModifierFlags+HotKey.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/NSEventModifierFlags+HotKey.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/NSEventModifierFlags+HotKey.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/NSEventModifierFlags+HotKey~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/HotKey.build/NSEventModifierFlags+HotKey.swiftdeps"
+  }
+}

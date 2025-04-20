@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:multi-clipboard}",
+            "name": "Debug MultiClipboard",
+            "program": "${workspaceFolder:multi-clipboard}/.build/debug/MultiClipboard",
+            "preLaunchTask": "swift: Build Debug MultiClipboard"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:multi-clipboard}",
+            "name": "Release MultiClipboard",
+            "program": "${workspaceFolder:multi-clipboard}/.build/release/MultiClipboard",
+            "preLaunchTask": "swift: Build Release MultiClipboard"
+        }
+    ]
+}
