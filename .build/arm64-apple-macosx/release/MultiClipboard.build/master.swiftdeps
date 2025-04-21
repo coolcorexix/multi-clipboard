@@ -1,6 +1,0 @@
-version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
-options: "4f2bc11d4332a124e17fef44d977aa22dff6c7a71eed2f5fb7e19b9e8c64b64f"
-build_start_time: [1745050933, 2515000]
-build_end_time: [1745050935, 648469000]
-inputs:
-  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift": [1745050850, 729317291]
