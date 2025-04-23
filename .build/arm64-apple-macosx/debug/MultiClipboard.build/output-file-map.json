@@ -80,6 +80,12 @@
     "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/SearchBarView~partial.swiftmodule",
     "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/SearchBarView.swiftdeps"
   },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift": {
+    "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.d",
+    "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.swift.o",
+    "swiftmodule": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.swiftdeps"
+  },
   "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift": {
     "dependencies": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.d",
     "object": "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.swift.o",

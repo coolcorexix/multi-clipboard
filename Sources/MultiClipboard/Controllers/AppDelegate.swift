@@ -2,7 +2,7 @@ import Cocoa
 import HotKey
 import SwiftUI
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     var statusItem: NSStatusItem?
     private var clipboardHotKey: HotKey?
     private var searchHotKey: HotKey?
@@ -10,7 +10,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var clipboardTimer: Timer?
     private var historyWindowController: HistoryWindowController?
     var searchPanel: NSWindow?
-    @Published private(set) var isSearchBarVisible = false
+    private var lastActiveWindow: NSWindow?
+    private var lastActiveApp: NSRunningApplication?
+    @Published var isSearchBarVisible = false {
+        didSet {
+            if isSearchBarVisible {
+                searchPanel?.makeKeyAndOrderFront(nil)
+                NSApp.activate(ignoringOtherApps: true)
+            } else {
+                searchPanel?.orderOut(nil)
+            }
+        }
+    }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Application did finish launching")
@@ -34,15 +45,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupMenu() {
-        let menu = NSMenu()
+        // 1. Setup Main Menu (for keyboard shortcuts)
+        let mainMenu = NSMenu()
         
-        menu.addItem(NSMenuItem(title: "MultiClipboard", action: nil, keyEquivalent: ""))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Show History", action: #selector(showHistory), keyEquivalent: "h"))
-        menu.addItem(NSMenuItem(title: "Check Permissions", action: #selector(checkAccessibilityPermissions), keyEquivalent: "p"))
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        // Edit Menu (put this first for better shortcut handling)
+        let editMenuItem = NSMenuItem()
+        editMenuItem.submenu = NSMenu(title: "Edit")
+        let editMenu = editMenuItem.submenu!
         
-        statusItem?.menu = menu
+        // Add a hidden menu item to ensure Edit menu exists
+        editMenu.addItem(withTitle: "Edit", action: nil, keyEquivalent: "")
+        
+        // Add standard edit menu items
+        editMenu.addItem(NSMenuItem(title: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x"))
+        editMenu.addItem(NSMenuItem(title: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c"))
+        editMenu.addItem(NSMenuItem(title: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v"))
+        editMenu.addItem(NSMenuItem(title: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a"))
+        mainMenu.addItem(editMenuItem)
+        
+        // Application Menu
+        let appMenuItem = NSMenuItem()
+        appMenuItem.submenu = NSMenu()
+        let appMenu = appMenuItem.submenu!
+        appMenu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        mainMenu.addItem(appMenuItem)
+        
+        // Set the application's main menu
+        NSApp.mainMenu = mainMenu
+        
+        // 2. Setup Status Item Menu (existing menu)
+        let statusMenu = NSMenu()
+        statusMenu.addItem(NSMenuItem(title: "MultiClipboard", action: nil, keyEquivalent: ""))
+        statusMenu.addItem(NSMenuItem.separator())
+        statusMenu.addItem(NSMenuItem(title: "Show History", action: #selector(showHistory), keyEquivalent: "h"))
+        statusMenu.addItem(NSMenuItem(title: "Check Permissions", action: #selector(checkAccessibilityPermissions), keyEquivalent: "p"))
+        statusMenu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        
+        statusItem?.menu = statusMenu
     }
     
     func setupKeyboardShortcuts() {
@@ -53,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Setup Cmd + Shift + F hotkey for search
-        searchHotKey = HotKey(key: .f, modifiers: [.command, .shift])
+        searchHotKey = HotKey(key: .w, modifiers: [.command, .shift])
         searchHotKey?.keyDownHandler = { [weak self] in
             self?.toggleSearchPanel()
         }
@@ -122,6 +161,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+
+    
     
     @objc func checkAccessibilityPermissions() {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
@@ -275,21 +316,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func showSearchPanel() {
-        isSearchBarVisible = true
+        // Store the current active application before showing our panel
+        lastActiveApp = NSWorkspace.shared.frontmostApplication
+        print("Last active app: \(String(describing: lastActiveApp?.localizedName))")
+        
         searchPanel?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
     @objc func hideSearchPanel() {
-        isSearchBarVisible = false
         searchPanel?.orderOut(nil)
+        
+        // Restore focus to the last active application
+        if let lastApp = lastActiveApp {
+            lastApp.activate(options: .activateIgnoringOtherApps)
+        }
+        lastActiveApp = nil
     }
     
     @objc private func toggleSearchPanel() {
-        if isSearchBarVisible {
+        if searchPanel?.isVisible == true {
             hideSearchPanel()
         } else {
             showSearchPanel()
         }
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // Always enable Edit menu items when there's a text field active
+        if menuItem.action == #selector(NSText.cut(_:)) ||
+           menuItem.action == #selector(NSText.copy(_:)) ||
+           menuItem.action == #selector(NSText.paste(_:)) ||
+           menuItem.action == #selector(NSText.selectAll(_:)) {
+            // Return true to enable the menu item and its keyboard shortcut
+            return true
+        }
+        return true
     }
 } 

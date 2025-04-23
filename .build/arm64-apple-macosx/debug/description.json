@@ -212,6 +212,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift"
         },
         {
@@ -244,6 +248,7 @@
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/JSONClipboardStorage.swift.o",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/ContentView.swift.o",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/SearchBarView.swift.o",
+        "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.swift.o",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.swift.o"
       ],
       "otherArguments" : [
@@ -347,6 +352,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/main.swift.o"
         },
         {
@@ -369,6 +378,7 @@
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/JSONClipboardStorage.swift",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/ContentView.swift",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/SearchBarView.swift",
+        "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift",
         "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift"
       ],
       "tempsPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build",
@@ -459,6 +469,7 @@
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/JSONClipboardStorage.swift",
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/ContentView.swift",
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/SearchBarView.swift",
+      "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift",
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift",
       "-I",
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/Modules",
@@ -633,6 +644,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift"
         }
       ],
@@ -720,6 +735,10 @@
         {
           "kind" : "file",
           "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/SearchBarView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/WindowManager.swift.o"
         },
         {
           "kind" : "file",
