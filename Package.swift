@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -17,12 +17,17 @@ let package = Package(
             name: "MultiClipboard",
             dependencies: ["HotKey"],
             resources: [
-                .process("Resources")
+                .copy("Resources"),
+                .process("Models/MultiClipboard.xcdatamodeld")
+            ],
+            swiftSettings: [
+                .unsafeFlags(["-enable-bare-slash-regex"])
             ]
         ),
         .testTarget(
             name: "MultiClipboardTests",
-            dependencies: ["MultiClipboard"]
+            dependencies: ["MultiClipboard"],
+            path: "Tests/MultiClipboardTests"
         )
     ]
 ) 

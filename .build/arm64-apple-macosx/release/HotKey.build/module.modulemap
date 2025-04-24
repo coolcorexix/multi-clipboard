@@ -1,0 +1,4 @@
+module HotKey {
+    header "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/release/HotKey.build/HotKey-Swift.h"
+    requires objc
+}

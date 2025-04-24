@@ -272,6 +272,7 @@
         "-color-diagnostics",
         "-swift-version",
         "5",
+        "-enable-bare-slash-regex",
         "-sdk",
         "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk",
         "-F",
@@ -292,9 +293,7 @@
         "-Xcc",
         "-fPIC",
         "-Xcc",
-        "-g",
-        "-package-name",
-        "multi_clipboard"
+        "-g"
       ],
       "outputFileMapPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboard.build/output-file-map.json",
       "outputs" : [
@@ -452,8 +451,6 @@
       "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
       "-module-name",
       "MultiClipboard",
-      "-package-name",
-      "multi_clipboard",
       "-incremental",
       "-c",
       "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/AppDelegate.swift",
@@ -493,6 +490,7 @@
       "-color-diagnostics",
       "-swift-version",
       "5",
+      "-enable-bare-slash-regex",
       "-sdk",
       "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk",
       "-F",
@@ -514,8 +512,6 @@
       "-fPIC",
       "-Xcc",
       "-g",
-      "-package-name",
-      "multi_clipboard",
       "-driver-use-frontend-path",
       "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
     ]

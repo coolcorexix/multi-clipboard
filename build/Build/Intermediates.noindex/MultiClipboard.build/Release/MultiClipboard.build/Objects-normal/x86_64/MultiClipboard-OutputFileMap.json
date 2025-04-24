@@ -1,0 +1,105 @@
+{
+  "" : {
+    "const-values" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master.swiftconstvalues",
+    "dependencies" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master.d",
+    "diagnostics" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master.dia",
+    "emit-module-dependencies" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master-emit-module.dia",
+    "swift-dependencies" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard-master.swiftdeps"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/AppDelegate.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/AppDelegate.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/AppDelegate.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/AppDelegate.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/HistoryWindowController.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/HistoryWindowController.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/HistoryWindowController.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/HistoryWindowController.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/KeyboardShortcuts.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/KeyboardShortcuts.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/KeyboardShortcuts.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/KeyboardShortcuts.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Extensions/NotificationName+Extensions.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/NotificationName+Extensions.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/NotificationName+Extensions.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/NotificationName+Extensions.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Managers/ClipboardManager.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardManager.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardManager.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardManager.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Models/ClipboardContent.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardContent.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardContent.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardContent.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Models/ClipboardItem.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardItem.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardItem.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardItem.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/MultiClipboardApp.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboardApp.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboardApp.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboardApp.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/ClipboardStorage.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardStorage.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardStorage.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ClipboardStorage.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/CoreDataClipboardStorage.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/CoreDataClipboardStorage.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/CoreDataClipboardStorage.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/CoreDataClipboardStorage.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/JSONClipboardStorage.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/JSONClipboardStorage.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/JSONClipboardStorage.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/JSONClipboardStorage.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/ContentView.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ContentView.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ContentView.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/ContentView.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/SearchBarView.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/SearchBarView.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/SearchBarView.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/SearchBarView.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/WindowManager.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/WindowManager.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/WindowManager.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/main.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/main.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/main.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/DerivedSources/CoreDataGenerated/MultiClipboard/Entity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataClass.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataClass.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataClass.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/DerivedSources/CoreDataGenerated/MultiClipboard/Entity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataProperties.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/Entity+CoreDataProperties.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/DerivedSources/CoreDataGenerated/MultiClipboard/MultiClipboard+CoreDataModel.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard+CoreDataModel.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard+CoreDataModel.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/MultiClipboard+CoreDataModel.o"
+  },
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/resource_bundle_accessor.bc",
+    "object" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/MultiClipboard.build/Release/MultiClipboard.build/Objects-normal/x86_64/resource_bundle_accessor.o"
+  }
+}

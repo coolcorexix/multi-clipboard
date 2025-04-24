@@ -1,0 +1,20 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "63eed1ec3ab58fccbab1c5f6c1415c4b84e3a69c3d67265e81c9355ec8481691"
+build_start_time: [1745395951, 424307000]
+build_end_time: [1745395955, 584061000]
+inputs:
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/AppDelegate.swift": [1745385026, 786164275]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/HistoryWindowController.swift": [1745218654, 220429388]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Controllers/KeyboardShortcuts.swift": [1745221461, 788330432]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Extensions/NotificationName+Extensions.swift": [1745207850, 430107045]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Managers/ClipboardManager.swift": [1745220121, 404404340]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Models/ClipboardContent.swift": [1745210169, 513698010]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Models/ClipboardItem.swift": [1745219821, 571813615]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/MultiClipboardApp.swift": [1745384168, 483119778]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/ClipboardStorage.swift": [1745210133, 368620242]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/CoreDataClipboardStorage.swift": [1745220851, 170322763]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Storage/JSONClipboardStorage.swift": [1745219338, 405449024]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/ContentView.swift": [1745209028, 736978814]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/Views/SearchBarView.swift": [1745395287, 713200281]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/WindowManager.swift": [1745379568, 290056249]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/Sources/MultiClipboard/main.swift": [1745310268, 68139398]

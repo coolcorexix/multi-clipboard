@@ -1,0 +1,12 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "108b4b1941f7d530d43cd2d2f02558ce68d3fb05619c29625c7ee5c685d01105"
+build_start_time: [1745395948, 59547000]
+build_end_time: [1745395951, 356466000]
+inputs:
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/HotKey.swift": [1745219240, 721117693]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/HotKeysController.swift": [1745219240, 721177861]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/Key.swift": [1745219240, 721237904]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/KeyCombo+System.swift": [1745219240, 721306655]
+  "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/KeyCombo.swift": [1745219240, 721356781]
+  ? "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/checkouts/HotKey/Sources/HotKey/NSEventModifierFlags+HotKey.swift"
+  : [1745219240, 721410199]

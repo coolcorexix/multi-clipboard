@@ -1,0 +1,78 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "PACKAGE-PRODUCT:MultiClipboard"
+    }
+  ],
+  "containerPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx15.2",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Products",
+      "derivedDataPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build",
+      "indexDataStoreFolderPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "CODE_SIGN_IDENTITY" : "-",
+          "CODE_SIGN_STYLE" : "Automatic",
+          "CURRENT_PROJECT_VERSION" : "1",
+          "DEVELOPMENT_TEAM" : "",
+          "ENABLE_HARDENED_RUNTIME" : "YES",
+          "MACOSX_DEPLOYMENT_TARGET" : "13.0",
+          "MARKETING_VERSION" : "1.0.0",
+          "OTHER_CODE_SIGN_FLAGS" : "--deep",
+          "PRODUCT_BUNDLE_IDENTIFIER" : "com.multiclipboard.app",
+          "PRODUCT_NAME" : "MultiClipboard",
+          "SDKROOT" : "macosx15.2"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "CLANG_COVERAGE_MAPPING" : "YES",
+          "CLANG_PROFILE_DATA_DIRECTORY" : "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/build/Build/ProfileData",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "diagnostic_message_length" : "84",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "YES",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
