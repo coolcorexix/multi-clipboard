@@ -1,8 +1,0 @@
-Target dependency graph (4 targets)
-Target 'MultiClipboard' in project 'MultiClipboard'
-➜ Explicit dependency on target 'MultiClipboard_MultiClipboard' in project 'MultiClipboard'
-➜ Explicit dependency on target 'HotKey' in project 'HotKey'
-Target 'HotKey' in project 'HotKey'
-➜ Explicit dependency on target 'HotKey' in project 'HotKey'
-Target 'HotKey' in project 'HotKey' (no dependencies)
-Target 'MultiClipboard_MultiClipboard' in project 'MultiClipboard' (no dependencies)

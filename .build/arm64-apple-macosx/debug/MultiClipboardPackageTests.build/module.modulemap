@@ -1,4 +1,0 @@
-module MultiClipboardPackageTests {
-    header "/Users/huyphatpham/Documents/nemo-lab.nosync/multi-clipboard/.build/arm64-apple-macosx/debug/MultiClipboardPackageTests.build/MultiClipboardPackageTests-Swift.h"
-    requires objc
-}
