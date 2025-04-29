@@ -1,70 +1,133 @@
 import Cocoa
 import Foundation
+import SwiftUI
 
-public class ClipboardManager {
+public class ClipboardManager: ObservableObject {
+    @Published public private(set) var recentItems: [ClipboardContent] = []
+    
     public static let shared = ClipboardManager()
     private let storage: ClipboardStorage
-    private let maxHistoryItems = 50 // Limit the number of items we store
+    private let maxItems = 50
+    private let fileManager = FileManager.default
+    private let dataDirectory: URL
+    
+    private init() {
+        // Initialize storage
+        storage = JSONClipboardStorage()
+        
+        // Setup data directory
+        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let bundleId = Bundle.main.bundleIdentifier ?? "com.multiclipboard"
+        dataDirectory = appSupport.appendingPathComponent(bundleId).appendingPathComponent("ClipboardData")
+        
+        // Create directory if needed
+        try? fileManager.createDirectory(at: dataDirectory, withIntermediateDirectories: true)
+        
+        // Load initial items
+        if storage.load() {
+            updateRecentItems()
+        }
+    }
+    
+    private func updateRecentItems() {
+        recentItems = storage.getAllItems()
+    }
+    
+    public func addContent(_ value: String, type: ClipboardContentType, data: Data? = nil) {
+        // Check for duplicates
+        if let existingContent = storage.getItem(withId: value) {
+            try? storage.deleteItem(withId: existingContent.id)
+            try? storage.addItem(existingContent, withData: data)
+            storage.save()
+            updateRecentItems()
+            return
+        }
+        
+        var content = ClipboardContent(type: type, value: value)
+        
+        // Handle file data if provided
+        if let data = data {
+            let filename = "\(content.id).\(type == .image ? "png" : "dat")"
+            let fileURL = dataDirectory.appendingPathComponent(filename)
+            
+            do {
+                try data.write(to: fileURL)
+                content.filePath = fileURL.path
+                content.fileSize = Int64(data.count)
+                print("Saved file data to: \(fileURL.path)")
+            } catch {
+                print("Failed to save file data: \(error)")
+            }
+        }
+        
+        // Add new content
+        try? storage.addItem(content, withData: data)
+        
+        // Remove oldest if exceeding max
+        if storage.getAllItems().count > maxItems {
+            try? storage.deleteOldestItems(keepingOnly: maxItems)
+        }
+        
+        // Save changes
+        storage.save()
+        
+        // Update recent items
+        updateRecentItems()
+        
+        // Post notification
+        NotificationCenter.default.post(name: .clipboardContentDidChange, object: nil)
+    }
     
     public var clipboardItems: [ClipboardContent] {
-        storage.getAllItems()
+        return storage.getAllItems()
     }
     
-    public init(storage: ClipboardStorage = CoreDataClipboardStorage()) {
-        self.storage = storage
-        try? storage.initialize()
+    public func getRecentItems(limit: Int = 5) -> [ClipboardContent] {
+        return Array(storage.getAllItems().prefix(limit))
     }
     
-    public func addContent(_ content: String, type: ClipboardContentType) {
-        addContent(content, type: type, data: nil)
-    }
-    
-    public func addContent(_ content: String, type: ClipboardContentType, data: Data?) {
-        print("\n=== Adding New Content ===")
-        print("Type: \(type)")
-        print("Content: \(content)")
-        
-        let clipboardContent = ClipboardContent(
-            type: type,
-            value: content,
-            fileSize: data?.count.toInt64,
-            mimeType: type == .image ? "image/png" : type == .video ? "video/mp4" : nil
-        )
-        
-        do {
-            try storage.addItem(clipboardContent, withData: data)
-            // try storage.deleteOldestItems(keepingOnly: maxHistoryItems)
-            
-            // Notify observers that content changed
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .clipboardContentDidChange, object: nil)
-            }
-        } catch {
-            print("Error adding content: \(error)")
-        }
+    private func handleDuplicateContent(_ content: String, type: ClipboardContentType) -> ClipboardContent? {
+        return storage.getAllItems().first(where: { $0.value == content && $0.type == type })
     }
     
     public func getFileData(for content: ClipboardContent) -> Data? {
-        storage.getFileData(for: content)
+        guard let path = content.filePath else { return nil }
+        return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
     
     public func setAlias(_ alias: String?, forItemAt index: Int) {
-        let items = clipboardItems
+        let items = storage.getAllItems()
         guard index < items.count else { return }
-        
-        var updatedItem = items[index]
-        updatedItem.alias = alias
-        
-        do {
-            try storage.updateItem(updatedItem)
-            
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .clipboardContentDidChange, object: nil)
-            }
-        } catch {
-            print("Error setting alias: \(error)")
-        }
+        var item = items[index]
+        item.alias = alias
+        try? storage.updateItem(item)
+        updateRecentItems()
+        NotificationCenter.default.post(name: .clipboardContentDidChange, object: nil)
     }
+    
+    private func deleteFileData(for content: ClipboardContent) {
+        guard let path = content.filePath else { return }
+        try? fileManager.removeItem(atPath: path)
+    }
+    
+    func cleanup() {
+        // Remove all stored files
+        let existingFiles = (try? fileManager.contentsOfDirectory(at: dataDirectory, includingPropertiesForKeys: nil)) ?? []
+        for file in existingFiles {
+            try? fileManager.removeItem(at: file)
+        }
+        
+        // Clear storage
+        try? storage.deleteAllItems()
+        storage.save()
+        
+        // Update recent items
+        updateRecentItems()
+    }
+}
+
+extension Notification.Name {
+    static let clipboardContentDidChange = Notification.Name("com.multiclipboard.clipboardContentDidChange")
 }
 
 private extension Int {

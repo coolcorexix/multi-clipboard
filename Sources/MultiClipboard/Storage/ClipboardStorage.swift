@@ -1,15 +1,20 @@
 import Foundation
 
 public protocol ClipboardStorage {
-    // Core operations
+    var items: [ClipboardContent] { get set }
+    func load() -> Bool
+    func save() -> Bool
+    func initialize() throws
+    func addItem(_ item: ClipboardContent, withData data: Data?) throws
+    func updateItem(_ item: ClipboardContent) throws
     func getAllItems() -> [ClipboardContent]
-    func addItem(_ content: ClipboardContent, withData data: Data?) throws
+    func getFileData(for content: ClipboardContent) -> Data?
+    
+    // Core operations
     func getItem(withId id: String) -> ClipboardContent?
-    func updateItem(_ content: ClipboardContent) throws
     func deleteItem(withId id: String) throws
     
     // File operations
-    func getFileData(for content: ClipboardContent) -> Data?
     func storeFileData(_ data: Data, for content: ClipboardContent) throws -> String? // Returns file path if applicable
     
     // Batch operations
@@ -18,5 +23,4 @@ public protocol ClipboardStorage {
     
     // Maintenance
     func cleanup() throws
-    func initialize() throws
 } 

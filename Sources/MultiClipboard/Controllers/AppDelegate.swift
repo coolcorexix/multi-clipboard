@@ -92,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
         
         // Setup Cmd + Shift + F hotkey for search
-        searchHotKey = HotKey(key: .w, modifiers: [.command, .shift])
+        searchHotKey = HotKey(key: .v, modifiers: [.command, .shift])
         searchHotKey?.keyDownHandler = { [weak self] in
             self?.toggleSearchPanel()
         }
@@ -141,23 +141,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             // Check for text content
             if let copiedString = NSPasteboard.general.string(forType: .string) {
                 print("New clipboard content detected: \(copiedString)")
-                // Add to clipboard history
                 ClipboardManager.shared.addContent(copiedString, type: .text)
-                // No need to show prompt anymore since we have the history window
             }
             // Check for image content
-            else if let copiedImage = NSPasteboard.general.data(forType: .tiff) ?? NSPasteboard.general.data(forType: .png) {
-                let dateStr = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
-                let imageName = "image_\(dateStr)"
-                print("New image content detected: \(imageName)")
-                // Add to clipboard history
-                ClipboardManager.shared.addContent(imageName, type: .image)
+            else if let imageData = NSPasteboard.general.data(forType: .tiff) ?? NSPasteboard.general.data(forType: .png) {
+                print("New image content detected")
                 
-                // Save the image data
-                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    let imageURL = documentDirectory.appendingPathComponent("\(imageName).png")
-                    try? copiedImage.write(to: imageURL)
+                // Convert TIFF to PNG if needed
+                let finalImageData: Data
+                if NSPasteboard.general.data(forType: .tiff) != nil,
+                   let tiffImage = NSImage(data: imageData),
+                   let cgImage = tiffImage.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                    let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
+                    if let pngData = bitmapRep.representation(using: .png, properties: [:]) {
+                        finalImageData = pngData
+                        print("Successfully converted TIFF to PNG")
+                    } else {
+                        finalImageData = imageData
+                        print("Failed to convert TIFF to PNG, using original data")
+                    }
+                } else {
+                    finalImageData = imageData
+                    print("Using original PNG data")
                 }
+                
+                // Generate a unique identifier for the image
+                let identifier = UUID().uuidString
+                
+                // Add to clipboard history with the actual image data
+                ClipboardManager.shared.addContent(
+                    identifier,
+                    type: .image,
+                    data: finalImageData
+                )
             }
         }
     }

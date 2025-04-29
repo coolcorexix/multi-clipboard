@@ -17,8 +17,7 @@ let package = Package(
             name: "MultiClipboard",
             dependencies: ["HotKey"],
             resources: [
-                .copy("Resources"),
-                .process("Models/MultiClipboard.xcdatamodeld")
+                .copy("Resources")
             ],
             swiftSettings: [
                 .unsafeFlags(["-enable-bare-slash-regex"])

@@ -1,149 +1,145 @@
 import Foundation
 
 public class JSONClipboardStorage: ClipboardStorage {
-    private var clipboardHistory: [String: ClipboardContent] = [:]
     private let fileManager = FileManager.default
+    private let storageURL: URL
+    private let dataDirectory: URL
     
-    private lazy var storageDirectory: URL? = {
-        guard let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-            return nil
-        }
-        let storageURL = appSupport.appendingPathComponent("MultiClipboard/Storage", isDirectory: true)
-        try? fileManager.createDirectory(at: storageURL, withIntermediateDirectories: true)
-        return storageURL
-    }()
-    
-    private var metadataURL: URL? {
-        guard let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-            return nil
-        }
-        return appSupport.appendingPathComponent("MultiClipboard/metadata.json")
-    }
+    public var items: [ClipboardContent] = []
     
     public init() {
-        try? initialize()
-    }
-    
-    // MARK: - ClipboardStorage Protocol Implementation
-    
-    public func getAllItems() -> [ClipboardContent] {
-        return Array(clipboardHistory.values).sorted { $0.createdAt > $1.createdAt }
-    }
-    
-    public func addItem(_ content: ClipboardContent, withData data: Data?) throws {
-        let id = content.id
+        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let bundleId = Bundle.main.bundleIdentifier ?? "com.multiclipboard"
+        let appDirectory = appSupport.appendingPathComponent(bundleId)
         
-        if let data = data {
-            _ = try storeFileData(data, for: content)
-        }
-        print("Adding item with id: \(id)")
-        clipboardHistory[id] = content
-        print("Clipboard history: \(clipboardHistory)")
-        try saveMetadata()
-    }
-    
-    public func getItem(withId id: String) -> ClipboardContent? {
-        return clipboardHistory[id]
-    }
-    
-    public func updateItem(_ content: ClipboardContent) throws {
-        let id = content.id
+        storageURL = appDirectory.appendingPathComponent("clipboard_history.json")
+        dataDirectory = appDirectory.appendingPathComponent("ClipboardData")
         
-        clipboardHistory[id] = content
-        try saveMetadata()
+        try? fileManager.createDirectory(at: appDirectory, withIntermediateDirectories: true)
+        try? fileManager.createDirectory(at: dataDirectory, withIntermediateDirectories: true)
+        
+        _ = load()
     }
     
-    public func deleteItem(withId id: String) throws {
-        if let content = clipboardHistory[id],
-           let filePath = content.filePath,
-           let storageDir = storageDirectory {
-            let fileURL = storageDir.appendingPathComponent(filePath)
-            try? fileManager.removeItem(at: fileURL)
-        }
-        
-        clipboardHistory.removeValue(forKey: id)
-        try saveMetadata()
-    }
-    
-    public func getFileData(for content: ClipboardContent) -> Data? {
-        guard let filePath = content.filePath,
-              let storageDir = storageDirectory else {
-            return nil
-        }
-        
-        let fileURL = storageDir.appendingPathComponent(filePath)
-        return try? Data(contentsOf: fileURL)
-    }
-    
-    public func storeFileData(_ data: Data, for content: ClipboardContent) throws -> String? {
-        let id = content.id
-        guard let storageDir = storageDirectory else {
-            return nil
-        }
-        
-        let typeDir = storageDir.appendingPathComponent(content.type.rawValue, isDirectory: true)
-        try fileManager.createDirectory(at: typeDir, withIntermediateDirectories: true)
-        
-        let filename = "\(id).\(content.type == .image ? "png" : "data")"
-        let fileURL = typeDir.appendingPathComponent(filename)
-        let relativePath = "\(content.type.rawValue)/\(filename)"
-        
-        try data.write(to: fileURL)
-        return relativePath
-    }
-    
-    public func deleteOldestItems(keepingOnly count: Int) throws {
-        let sortedItems = clipboardHistory.sorted { $0.value.createdAt > $1.value.createdAt }
-        
-        for item in sortedItems[count...] {
-            try deleteItem(withId: item.key)
-        }
-    }
-    
-    public func deleteAllItems() throws {
-        if let storageDir = storageDirectory {
-            try? fileManager.removeItem(at: storageDir)
-        }
-        
-        clipboardHistory.removeAll()
-        try saveMetadata()
-    }
-    
-    public func cleanup() throws {
-        // Optional: Implement cleanup of orphaned files
-    }
-    
-    public func initialize() throws {
-        try loadMetadata()
-    }
-    
-    // MARK: - Private Methods
-    
-    private func saveMetadata() throws {
-        guard let metadataURL = metadataURL else {
-            throw StorageError.invalidStorageLocation
-        }
-        
-        try fileManager.createDirectory(at: metadataURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-        
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let data = try encoder.encode(clipboardHistory)
-        try data.write(to: metadataURL)
-    }
-    
-    private func loadMetadata() throws {
-        guard let metadataURL = metadataURL else {
-            throw StorageError.invalidStorageLocation
+    public func load() -> Bool {
+        if !fileManager.fileExists(atPath: storageURL.path) {
+            items = []
+            return save()
         }
         
         do {
-            let data = try Data(contentsOf: metadataURL)
-            let decoder = JSONDecoder()
-            clipboardHistory = try decoder.decode([String: ClipboardContent].self, from: data)
+            let data = try Data(contentsOf: storageURL)
+            items = try JSONDecoder().decode([ClipboardContent].self, from: data)
+            return true
         } catch {
-            clipboardHistory = [:] // Start with empty history if loading fails
+            print("Failed to load clipboard history: \(error)")
+            return false
         }
+    }
+    
+    public func save() -> Bool {
+        do {
+            let data = try JSONEncoder().encode(items)
+            try data.write(to: storageURL)
+            return true
+        } catch {
+            print("Failed to save clipboard history: \(error)")
+            return false
+        }
+    }
+    
+    public func initialize() throws {
+        if !fileManager.fileExists(atPath: storageURL.path) {
+            items = []
+            try? save()
+        }
+    }
+    
+    public func getAllItems() -> [ClipboardContent] {
+        return items
+    }
+    
+    public func getItem(withId id: String) -> ClipboardContent? {
+        return items.first { $0.id == id }
+    }
+    
+    public func addItem(_ item: ClipboardContent, withData data: Data?) throws {
+        if let data = data {
+            let filename = "\(item.id).\(item.type == .image ? "png" : "dat")"
+            let fileURL = dataDirectory.appendingPathComponent(filename)
+            try data.write(to: fileURL)
+            
+            var updatedItem = item
+            updatedItem.filePath = fileURL.path
+            updatedItem.fileSize = Int64(data.count)
+            items.insert(updatedItem, at: 0)
+        } else {
+            items.insert(item, at: 0)
+        }
+        
+        try? save()
+    }
+    
+    public func updateItem(_ item: ClipboardContent) throws {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index] = item
+            try? save()
+        }
+    }
+    
+    public func deleteItem(withId id: String) throws {
+        if let index = items.firstIndex(where: { $0.id == id }) {
+            let item = items[index]
+            if let filePath = item.filePath {
+                try? fileManager.removeItem(atPath: filePath)
+            }
+            items.remove(at: index)
+            try? save()
+        }
+    }
+    
+    public func getFileData(for content: ClipboardContent) -> Data? {
+        guard let path = content.filePath else { return nil }
+        return try? Data(contentsOf: URL(fileURLWithPath: path))
+    }
+    
+    public func storeFileData(_ data: Data, for content: ClipboardContent) throws -> String? {
+        let filename = "\(content.id).\(content.type == .image ? "png" : "dat")"
+        let fileURL = dataDirectory.appendingPathComponent(filename)
+        try data.write(to: fileURL)
+        return fileURL.path
+    }
+    
+    public func cleanup() throws {
+        // Remove all files in the data directory
+        let files = try? fileManager.contentsOfDirectory(at: dataDirectory, includingPropertiesForKeys: nil)
+        try files?.forEach { try fileManager.removeItem(at: $0) }
+        
+        // Clear items array
+        items.removeAll()
+        try? save()
+    }
+    
+    public func deleteOldestItems(keepingOnly count: Int) throws {
+        // Sort items by creation date, newest first
+        let sortedItems = items.sorted { $0.createdAt > $1.createdAt }
+        
+        // Keep only the specified number of newest items
+        items = Array(sortedItems.prefix(count))
+        
+        // Delete file data for removed items
+        let removedItems = sortedItems.dropFirst(count)
+        for item in removedItems {
+            if let filePath = item.filePath {
+                try? fileManager.removeItem(atPath: filePath)
+            }
+        }
+        
+        try? save()
+    }
+    
+    public func deleteAllItems() throws {
+        try cleanup()
     }
 }
 

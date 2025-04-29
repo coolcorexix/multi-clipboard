@@ -60,6 +60,13 @@ final class HistoryWindowController: NSWindowController {
         typeColumn.minWidth = 60
         tableView.addTableColumn(typeColumn)
         
+        // Add column for preview
+        let previewColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("preview"))
+        previewColumn.title = "Preview"
+        previewColumn.width = 80
+        previewColumn.minWidth = 80
+        tableView.addTableColumn(previewColumn)
+        
         // Add column for alias
         let aliasColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("alias"))
         aliasColumn.title = "Alias"
@@ -70,7 +77,7 @@ final class HistoryWindowController: NSWindowController {
         // Add column for content
         let contentColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("content"))
         contentColumn.title = "Content"
-        contentColumn.width = scrollView.bounds.width - 280 // Account for other columns and scrollbar
+        contentColumn.width = scrollView.bounds.width - 480 // Adjusted width to accommodate preview column
         contentColumn.minWidth = 100
         tableView.addTableColumn(contentColumn)
         
@@ -80,6 +87,13 @@ final class HistoryWindowController: NSWindowController {
         sizeColumn.width = 80
         sizeColumn.minWidth = 60
         tableView.addTableColumn(sizeColumn)
+        
+        // Add column for created at
+        let createdAtColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("createdAt"))
+        createdAtColumn.title = "Created At"
+        createdAtColumn.width = 120
+        createdAtColumn.minWidth = 120
+        tableView.addTableColumn(createdAtColumn)
         
         // Set delegates
         tableView.delegate = self
@@ -180,6 +194,28 @@ extension HistoryWindowController: NSTableViewDataSource, NSTableViewDelegate {
             cellView.addSubview(textField)
             cellView.textField = textField
             
+        case "preview":
+            if clipboardContent.type == .image,
+               let data = clipboardManager.getFileData(for: clipboardContent),
+               let image = NSImage(data: data) {
+                let imageView = NSImageView(frame: NSRect(x: 5, y: 5, width: 40, height: 40))
+                imageView.image = image
+                imageView.imageScaling = .scaleProportionallyUpOrDown
+                imageView.wantsLayer = true
+                imageView.layer?.cornerRadius = 4
+                imageView.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.1).cgColor
+                cellView.addSubview(imageView)
+            } else {
+                let placeholder = NSTextField(frame: NSRect(x: 0, y: 0, width: tableColumn?.width ?? 80, height: 50))
+                placeholder.isEditable = false
+                placeholder.isBordered = false
+                placeholder.drawsBackground = false
+                placeholder.alignment = .center
+                placeholder.stringValue = ""
+                cellView.addSubview(placeholder)
+                cellView.textField = placeholder
+            }
+            
         case "alias":
             let aliasField = NSTextField(frame: NSRect(x: 0, y: 0, width: tableColumn?.width ?? 100, height: 50))
             aliasField.isEditable = true
@@ -237,6 +273,21 @@ extension HistoryWindowController: NSTableViewDataSource, NSTableViewDelegate {
             
             cellView.addSubview(textField)
             cellView.textField = textField
+            
+        case "createdAt":
+            let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: tableColumn?.width ?? 120, height: 50))
+            textField.isEditable = false
+            textField.isBordered = false
+            textField.drawsBackground = false
+            textField.alignment = .left
+            
+            let formatter = RelativeDateTimeFormatter()
+            formatter.unitsStyle = .abbreviated
+            textField.stringValue = formatter.localizedString(for: clipboardContent.createdAt, relativeTo: Date())
+            
+            cellView.addSubview(textField)
+            cellView.textField = textField
+            
         default:
             return nil
         }

@@ -18,11 +18,12 @@ struct SearchBarView: View {
     @State private var searchText: String = ""
     @FocusState private var isFocused: Bool
     @StateObject private var searchState = SearchState()
-    private let clipboardManager = ClipboardManager.shared
+    @ObservedObject private var clipboardManager = ClipboardManager.shared
+    @State private var notificationObserver: NSObjectProtocol?
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 16) {
+            VStack(spacing: 0) {
                 // Search bar container
                 VStack(spacing: 0) {
                     SearchTextField(
@@ -89,6 +90,23 @@ struct SearchBarView: View {
                 Task {
                     await performSearch(query: "")
                 }
+                
+                // Set up notification observer for clipboard changes
+                notificationObserver = NotificationCenter.default.addObserver(
+                    forName: .clipboardContentDidChange,
+                    object: nil,
+                    queue: .main
+                ) { _ in
+                    Task {
+                        await performSearch(query: searchText)
+                    }
+                }
+            }
+            .onDisappear {
+                // Clean up notification observer
+                if let observer = notificationObserver {
+                    NotificationCenter.default.removeObserver(observer)
+                }
             }
         }
     }
@@ -96,36 +114,61 @@ struct SearchBarView: View {
     private func performSearch(query: String) async {
         let allItems = clipboardManager.clipboardItems
         
+        // Helper function to deduplicate items
+        func deduplicateItems(_ items: [ClipboardContent]) -> [ClipboardContent] {
+            var uniqueItems: [String: ClipboardContent] = [:]
+            
+            items.forEach { content in
+                let key: String
+                if content.type == .image {
+                    // For images, use the hash of the image data as the key
+                    if let data = clipboardManager.getFileData(for: content) {
+                        print("data: \(data.hashValue)")
+                        key = String(data.hashValue)
+                    } else {
+                        key = content.value // Fallback to value if no data
+                    }
+                } else {
+                    // For other types, use the value as before
+                    key = content.value
+                }
+                
+                // Keep the most recent version if duplicate
+                if uniqueItems[key] == nil || 
+                   (uniqueItems[key]?.createdAt ?? Date.distantPast) < content.createdAt {
+                    uniqueItems[key] = content
+                }
+            }
+            
+            return Array(uniqueItems.values).sorted { $0.createdAt > $1.createdAt }
+        }
+        
         if query.isEmpty {
             await MainActor.run {
                 print("\n=== Recent Items ===")
-                // Items are already sorted by createdAt in storage layer
-                let recentItems = allItems.prefix(5)
-                recentItems.forEach { content in
-                    print("\(content.createdAt): \(content.value)")
-                }
-                searchState.searchResults = Array(recentItems)
+                // Deduplicate recent items
+                searchState.searchResults = deduplicateItems(clipboardManager.recentItems)
             }
             return
         }
         
-        var uniqueItems: [String: ClipboardContent] = [:]
-        
-        allItems.filter { content in
+        // Filter items based on search query
+        let filteredItems = allItems.filter { content in
             let searchableText = [
                 content.value.lowercased(),
-                content.alias?.lowercased() ?? ""
+                content.alias?.lowercased() ?? "",
+                content.type.rawValue.lowercased(),
+                content.type == .image ? "image" : "",
+                content.type == .video ? "video" : "",
+                content.type == .file ? "file" : "",
+                content.type == .text ? "text" : ""
             ].joined(separator: " ")
             
             return searchableText.contains(query.lowercased())
-        }.forEach { content in
-            if uniqueItems[content.value] == nil || 
-               (uniqueItems[content.value]?.createdAt ?? Date.distantPast) < content.createdAt {
-                uniqueItems[content.value] = content
-            }
         }
         
-        let results = Array(uniqueItems.values).sorted { $0.createdAt > $1.createdAt }
+        // Deduplicate filtered items
+        let results = deduplicateItems(filteredItems)
         
         await MainActor.run {
             searchState.searchResults = results
@@ -167,16 +210,26 @@ struct SearchResultsView: View {
                     .background(Color.gray.opacity(0.2))
                 
                 ScrollView {
-                    VStack(spacing: 8) {
-                        ForEach(Array(searchResults.enumerated()), id: \.element.id) { index, content in
-                            SearchResultRow(
-                                content: content,
-                                isSelected: index == selectedIndex,
-                                onSelect: { onSelect(content) }
-                            )
+                    ScrollViewReader { proxy in
+                        VStack(spacing: 8) {
+                            ForEach(Array(searchResults.enumerated()), id: \.element.id) { index, content in
+                                SearchResultRow(
+                                    content: content,
+                                    isSelected: index == selectedIndex,
+                                    onSelect: { onSelect(content) }
+                                )
+                                .id(index) // Add id for scrolling
+                            }
+                        }
+                        .padding(.horizontal)
+                        .onChange(of: selectedIndex) { newIndex in
+                            if let index = newIndex {
+                                withAnimation {
+                                    proxy.scrollTo(index, anchor: .center)
+                                }
+                            }
                         }
                     }
-                    .padding(.horizontal)
                 }
                 .frame(height: min(400, geometry.size.height * 0.6))
             }
@@ -215,7 +268,6 @@ struct SearchTextField: View {
             }
         }
         .padding()
-        .background(Color(.textBackgroundColor))
         .cornerRadius(8)
         .onAppear {
             eventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
@@ -265,6 +317,8 @@ struct SearchResultRow: View {
     let isSelected: Bool
     let onSelect: () -> Void
     @State private var isHovered = false
+    @State private var previewImage: NSImage? = nil
+    private let clipboardManager = ClipboardManager.shared
     
     private var icon: String {
         switch content.type {
@@ -296,9 +350,25 @@ struct SearchResultRow: View {
     var body: some View {
         Button(action: onSelect) {
             HStack(spacing: 12) {
-                Image(systemName: icon)
-                    .foregroundColor(isSelected || isHovered ? .white : .gray)
-                    .frame(width: 24)
+                if content.type == .image {
+                    Group {
+                        if let image = previewImage {
+                            Image(nsImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 40, height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                        } else {
+                            Image(systemName: icon)
+                                .foregroundColor(isSelected || isHovered ? .white : .gray)
+                                .frame(width: 40, height: 40)
+                        }
+                    }
+                } else {
+                    Image(systemName: icon)
+                        .foregroundColor(isSelected || isHovered ? .white : .gray)
+                        .frame(width: 24)
+                }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(displayText)
@@ -336,6 +406,18 @@ struct SearchResultRow: View {
                 isHovered = hovering
             }
         }
+        .onAppear {
+            if content.type == .image {
+                loadImagePreview()
+            }
+        }
+    }
+    
+    private func loadImagePreview() {
+        if let data = clipboardManager.getFileData(for: content),
+           let image = NSImage(data: data) {
+            previewImage = image
+        }
     }
 }
 
@@ -345,3 +427,6 @@ struct SearchBarView_Previews: PreviewProvider {
         SearchBarView()
     }
 }
+
+
+
