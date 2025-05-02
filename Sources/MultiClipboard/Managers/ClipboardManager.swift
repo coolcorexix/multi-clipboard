@@ -7,7 +7,7 @@ public class ClipboardManager: ObservableObject {
     
     public static let shared = ClipboardManager()
     private let storage: ClipboardStorage
-    private let maxItems = 50
+    private let maxItems = 5000
     private let fileManager = FileManager.default
     private let dataDirectory: URL
     
