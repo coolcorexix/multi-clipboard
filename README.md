@@ -62,7 +62,6 @@ A modern, privacy-friendly clipboard manager for macOS. MultiClipboard keeps tra
 | Shortcut                | Action                        |
 |-------------------------|-------------------------------|
 | Cmd + Shift + V         | Open search panel             |
-| Cmd + H                 | Show history window           |
 | Esc                     | Close search/history panel    |
 | ↑ / ↓                   | Navigate results              |
 | Enter                   | Copy selected item to clipboard |
