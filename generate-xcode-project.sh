@@ -21,4 +21,4 @@ xcodebuild \
     ENABLE_HARDENED_RUNTIME=YES \
     OTHER_CODE_SIGN_FLAGS="--deep"
 
-# The app will be in build/Build/Products/Release/MultiClipboard.app 
+# The app will be in build/Build/Products/Release/MultiClipboard.app ``

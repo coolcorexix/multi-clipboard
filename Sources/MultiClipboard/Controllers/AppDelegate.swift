@@ -1,6 +1,7 @@
 import Cocoa
 import HotKey
 import SwiftUI
+import ServiceManagement
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     var statusItem: NSStatusItem?
@@ -25,6 +26,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Application did finish launching")
+        // Register app as a login item (macOS 13+)
+        if #available(macOS 13.0, *) {
+            do {
+                try SMAppService.mainApp.register()
+                print("App registered as a login item.")
+            } catch {
+                print("Failed to register app as a login item: \(error)")
+            }
+        }
         // Create and store the search panel
         searchPanel = MultiClipboardApp.createMainWindow()
         
@@ -67,6 +77,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         let appMenuItem = NSMenuItem()
         appMenuItem.submenu = NSMenu()
         let appMenu = appMenuItem.submenu!
+        
+        // Preferences menu item (without Start at Login)
+        let preferencesMenuItem = NSMenuItem(title: "Preferences", action: nil, keyEquivalent: ",")
+        let preferencesMenu = NSMenu(title: "Preferences")
+        preferencesMenuItem.submenu = preferencesMenu
+        appMenu.addItem(preferencesMenuItem)
+        
         appMenu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         mainMenu.addItem(appMenuItem)
         
@@ -78,6 +95,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         statusMenu.addItem(NSMenuItem(title: "MultiClipboard", action: nil, keyEquivalent: ""))
         statusMenu.addItem(NSMenuItem.separator())
         statusMenu.addItem(NSMenuItem(title: "Show History", action: #selector(showHistory), keyEquivalent: "h"))
+        
+        // Preferences menu item
+        let statusPreferencesMenuItem = NSMenuItem(title: "Preferences", action: #selector(showPreferencesDialog), keyEquivalent: ",")
+        statusPreferencesMenuItem.target = self
+        statusMenu.addItem(statusPreferencesMenuItem)
+        
         statusMenu.addItem(NSMenuItem(title: "Check Permissions", action: #selector(checkAccessibilityPermissions), keyEquivalent: "p"))
         statusMenu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
@@ -368,5 +391,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             return true
         }
         return true
+    }
+    
+    // Helper property to check if start at login is enabled
+    var isStartAtLoginEnabled: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: "StartAtLoginEnabled")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "StartAtLoginEnabled")
+        }
+    }
+
+    // Show Preferences dialog
+    @objc func showPreferencesDialog(_ sender: Any?) {
+        let alert = NSAlert()
+        alert.messageText = "Preferences"
+        alert.informativeText = "Configure MultiClipboard options."
+        
+        // Add Start at Login checkbox
+        let checkbox = NSButton(checkboxWithTitle: "Start at Login", target: nil, action: nil)
+        checkbox.state = isStartAtLoginEnabled ? .on : .off
+        alert.accessoryView = checkbox
+        
+        alert.addButton(withTitle: "Close")
+        
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            let newValue = (checkbox.state == .on)
+            if newValue != isStartAtLoginEnabled {
+                isStartAtLoginEnabled = newValue
+                if #available(macOS 13.0, *) {
+                    do {
+                        if newValue {
+                            try SMAppService.mainApp.register()
+                        } else {
+                            try SMAppService.mainApp.unregister()
+                        }
+                    } catch {
+                        print("Failed to update login item: \(error)")
+                    }
+                }
+            }
+        }
     }
 } 
