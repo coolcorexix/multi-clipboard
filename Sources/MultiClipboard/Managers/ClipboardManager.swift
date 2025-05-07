@@ -13,7 +13,7 @@ public class ClipboardManager: ObservableObject {
     
     private init() {
         // Initialize storage
-        storage = JSONClipboardStorage()
+        storage = SQLiteClipboardStorage()
         
         // Setup data directory
         let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!

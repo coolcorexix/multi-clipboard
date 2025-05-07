@@ -198,6 +198,14 @@ struct SearchBarView: View {
         // Activate last active app before sending Cmd+V
         if let appDelegate = NSApp.delegate as? AppDelegate,
            let lastApp = appDelegate.lastActiveApp {
+            let appWithTabBundleIds = ["com.google.Chrome", "com.apple.Safari"]
+            print("lastApp: \(lastApp.localizedName)")
+            print("lastApp: \(lastApp.bundleIdentifier)")
+            if appWithTabBundleIds.contains(lastApp.bundleIdentifier ?? "") {
+                let activeTab = AppWithTabHelper.getActiveTab(bundleName: lastApp.localizedName ?? "")
+                print("activeTab: \(activeTab)")
+            }
+            
             lastApp.activate(options: [NSApplication.ActivationOptions.activateIgnoringOtherApps, NSApplication.ActivationOptions.activateAllWindows])
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 PasteSimulator.sendPasteCommand()

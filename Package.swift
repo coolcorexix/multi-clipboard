@@ -10,12 +10,13 @@ let package = Package(
         .executable(name: "MultiClipboard", targets: ["MultiClipboard"])
     ],
     dependencies: [
-        .package(url: "https://github.com/soffes/HotKey", from: "0.2.0")
+        .package(url: "https://github.com/soffes/HotKey", from: "0.2.0"),
+        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.13.3")
     ],
     targets: [
         .executableTarget(
             name: "MultiClipboard",
-            dependencies: ["HotKey"],
+            dependencies: ["HotKey", .product(name: "SQLite", package: "SQLite.swift")],
             resources: [
                 .copy("Resources")
             ],
