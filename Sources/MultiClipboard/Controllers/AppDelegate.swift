@@ -11,8 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var clipboardTimer: Timer?
     private var historyWindowController: HistoryWindowController?
     var searchPanel: NSWindow?
-    private var lastActiveWindow: NSWindow?
-    private var lastActiveApp: NSRunningApplication?
+    var lastActiveApp: NSRunningApplication?
     @Published var isSearchBarVisible = false {
         didSet {
             if isSearchBarVisible {
@@ -364,8 +363,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     }
     
     @objc func hideSearchPanel() {
-        searchPanel?.orderOut(nil)
-        
+        searchPanel?.orderOut(nil)        
         // Restore focus to the last active application
         if let lastApp = lastActiveApp {
             lastApp.activate(options: .activateIgnoringOtherApps)
@@ -434,5 +432,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 }
             }
         }
+    }
+    
+    // Public static function to simulate Cmd+V (paste)
+    public static func sendPasteCommand() {
+        let src = CGEventSource(stateID: .combinedSessionState)
+        let vDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)   // V
+        let vUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+        vDown?.flags = .maskCommand
+        vUp?.flags = .maskCommand
+        vDown?.post(tap: .cghidEventTap)
+        vUp?.post(tap: .cghidEventTap)
     }
 } 

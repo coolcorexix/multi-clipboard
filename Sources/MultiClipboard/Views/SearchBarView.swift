@@ -1,4 +1,6 @@
 import SwiftUI
+import Cocoa
+import Foundation
 
 class SearchState: ObservableObject {
     @Published var searchResults: [ClipboardContent] = [] {
@@ -193,6 +195,16 @@ struct SearchBarView: View {
                 pasteboard.setData(data, forType: type)
             }
         }
+        // Activate last active app before sending Cmd+V
+        if let appDelegate = NSApp.delegate as? AppDelegate,
+           let lastApp = appDelegate.lastActiveApp {
+            lastApp.activate(options: [NSApplication.ActivationOptions.activateIgnoringOtherApps, NSApplication.ActivationOptions.activateAllWindows])
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                PasteSimulator.sendPasteCommand()
+            }
+        } else {
+            PasteSimulator.sendPasteCommand()
+        }
     }
 }
 
@@ -339,6 +351,8 @@ struct SearchResultRow: View {
         case .video: return "[Video]"
         case .file: return "[File]"
         }
+
+        
     }
     
     private var formattedDate: String {
